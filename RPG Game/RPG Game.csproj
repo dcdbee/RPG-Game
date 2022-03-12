@@ -50,6 +50,7 @@
     <Compile Include="src\PokemonManager.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Testing.cs" />
     <Compile Include="src\Trainer.cs" />
     <Compile Include="src\Types.cs" />
   </ItemGroup>

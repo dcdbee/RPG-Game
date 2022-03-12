@@ -43,6 +43,8 @@ namespace RPG_Game
                 Console.WriteLine("Type: " + temp.GetType());
                 Console.WriteLine();
             }
+            Testing test = new Testing();
+            test.Init();
         }
 
         public static void Intro()
