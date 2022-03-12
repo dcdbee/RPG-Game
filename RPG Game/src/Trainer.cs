@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RPG_Game.src
 {
-    class Trainer
+    [DataContract]
+    public class Trainer
     {
+        [DataMember]
         private string name;
+        [DataMember]
         private List<Pokemon> PokemonList = new List<Pokemon>();
 
+        public Trainer()
+        {
+        }
         #region Setters & Getters
         public string GetName()
         {

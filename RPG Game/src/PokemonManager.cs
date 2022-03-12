@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Game.src
 {
-    class PokemonManager
+    public class PokemonManager
     {
         private List<Pokemon> Starters;
         private List<Pokemon> WildPokemon;

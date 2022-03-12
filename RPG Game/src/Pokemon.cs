@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RPG_Game.src
 {
-    class Pokemon
+    [DataContract]
+    public class Pokemon
     {
+        [DataMember]
         private int id;
         private string nickname;
         private string name;

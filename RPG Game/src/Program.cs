@@ -11,20 +11,24 @@ namespace RPG_Game
     {
         static void Main()
         {
-            Manager GameManager = new Manager();
-
+            GameManager GManager = new GameManager();
+            PokemonManager PManager = new PokemonManager();
             Console.WriteLine("What is your name?");
             string tname = Console.ReadLine();
-            PokemonManager manager = new PokemonManager();
-            manager.Populate();
+            Trainer Player = new Trainer();
+            Player.SetName(tname);
+
+            PManager = new PokemonManager();
+            PManager.Populate();
             Console.WriteLine($"Select a starter");
-            for (int i = 0; i < manager.GetStarters().Count; i++)
+            for (int i = 0; i < PManager.GetStarters().Count; i++)
             {
-                Console.WriteLine($"{i} - {manager.GetStarters()[i].GetName()}");
+                Console.WriteLine($"{i} - {PManager.GetStarters()[i].GetName()}");
             }
-            Pokemon tPokemon = manager.GetStarters()[int.Parse(Console.ReadLine())];
+            Pokemon tPokemon = PManager.GetStarters()[int.Parse(Console.ReadLine())];
             Console.WriteLine(tPokemon.GetName());
             Player.AddPokemon(tPokemon);
+            GManager.Saver(Player);
             Console.ReadKey();
         }
     }

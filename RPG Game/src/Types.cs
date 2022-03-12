@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Game.src
 {
-    enum PokemonTypes
+    public enum PokemonTypes
     {
         NORMAL,
         FIRE,
@@ -23,7 +23,7 @@ namespace RPG_Game.src
         ROCK,
         GHOST
     }
-    class Types
+    public class Types
     {
         public bool isEffective(PokemonTypes attacker, PokemonTypes victim)
         {
