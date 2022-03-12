@@ -12,15 +12,24 @@ namespace RPG_Game.src
     {
         [DataMember]
         private int id;
+        [DataMember]
         private string nickname;
+        [DataMember]
         private string name;
+        [DataMember]
         private int level;
+        [DataMember]
         private int experience;
+        [DataMember]
         private int hp;
+        [DataMember]
         private int maxHp;
+        [DataMember]
         private bool starter;
+        [DataMember]
         private PokemonTypes pType;
         private List<MoveTypes> moveList;
+        [DataMember]
         private Trainer pTrainer;
 
         //Constructor

@@ -6,24 +6,46 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace RPG_Game.src
 {
     public class GameManager
     {
+        private bool newGame = false;
         private string path = "info.xml";
         private Trainer Player = new Trainer();
         public GameManager()
         {
-            Player = Loader<Trainer>();
-            Console.WriteLine(Player.GetName());
-            Console.WriteLine(Player.GetPokemonList()[0].GetID());
         }
 
-        public void Saver<T>(T serializableObject)
+        #region Getters + Setters
+        public Trainer GetPlayer()
+        {
+            return Player;
+        }
+        public void SetPlayer(Trainer input)
+        {
+            Player = input;
+        }
+        #endregion
+
+        public void Load()
+        {
+            if (SaveExists())
+            {
+                Player = InternalLoader<Trainer>();
+            }
+        }
+
+        public void InternalSaver<T>(T serializableObject)
         {
             string filepath = "info.xml";
+            if (SaveExists())
+            {
+                File.WriteAllText(filepath, "");
+            }
             var serializer = new DataContractSerializer(typeof(T));
             var settings = new XmlWriterSettings()
             {
@@ -34,7 +56,7 @@ namespace RPG_Game.src
             serializer.WriteObject(writer, serializableObject);
             writer.Close();
         }
-        public T Loader<T>()
+        private T InternalLoader<T>()
         {
             string filepath = "info.xml";
             var fileStream = new FileStream(filepath, FileMode.Open);
@@ -44,6 +66,21 @@ namespace RPG_Game.src
             reader.Close();
             fileStream.Close();
             return serializableObject;
+        }
+        public bool SaveExists()
+        {
+            bool valid;
+            try
+            {
+                valid = true;
+                XDocument xd1 = new XDocument();
+                xd1 = XDocument.Load(path);
+            }
+            catch (XmlException exception)
+            {
+                valid = false;
+            }
+            return valid;
         }
     }
 }

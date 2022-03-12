@@ -9,17 +9,48 @@ namespace RPG_Game
 {
     class Program
     {
+        public static GameManager GManager;
+        public static PokemonManager PManager;
         static void Main()
         {
-            GameManager GManager = new GameManager();
-            PokemonManager PManager = new PokemonManager();
+            PManager = new PokemonManager();
+            GManager = new GameManager();
+            PManager.Populate();
+            if (!GManager.SaveExists())
+            {
+                Intro();
+                Play();
+            }
+            else
+            {
+                GManager.Load();
+                Play();
+            }
+            Console.ReadKey();
+        }
+
+        public static void Play()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Welcome {GManager.GetPlayer().GetName()}");
+            Console.WriteLine("Pokemon:");
+            for (int i = 0; i < GManager.GetPlayer().GetPokemonCount(); i++)
+            {
+                Pokemon temp = GManager.GetPlayer().GetPokemonList()[i];
+                Console.WriteLine("Name: " + temp.GetName());
+                Console.WriteLine("Level: " + temp.GetLevel());
+                Console.WriteLine($"Starter?: {temp.GetIsStarter()}");
+                Console.WriteLine("Type: " + temp.GetType());
+                Console.WriteLine();
+            }
+        }
+
+        public static void Intro()
+        {
             Console.WriteLine("What is your name?");
             string tname = Console.ReadLine();
             Trainer Player = new Trainer();
             Player.SetName(tname);
-
-            PManager = new PokemonManager();
-            PManager.Populate();
             Console.WriteLine($"Select a starter");
             for (int i = 0; i < PManager.GetStarters().Count; i++)
             {
@@ -28,8 +59,8 @@ namespace RPG_Game
             Pokemon tPokemon = PManager.GetStarters()[int.Parse(Console.ReadLine())];
             Console.WriteLine(tPokemon.GetName());
             Player.AddPokemon(tPokemon);
-            GManager.Saver(Player);
-            Console.ReadKey();
+            GManager.SetPlayer(Player);
+            GManager.InternalSaver(Player);
         }
     }
 }
